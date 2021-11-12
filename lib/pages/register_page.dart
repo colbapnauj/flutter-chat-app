@@ -1,10 +1,13 @@
 import 'dart:ui';
+import 'package:chat_app/helpers/mostrar_alerta.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:chat_app/widgets/botton_azul.dart';
 import 'package:chat_app/widgets/custom_input.dart';
 import 'package:chat_app/widgets/labels.dart';
 import 'package:chat_app/widgets/logo.dart';
-import 'package:flutter/material.dart';
+import 'package:chat_app/services/auth_service.dart';
 
 class RegisterPage extends StatelessWidget {
   @override
@@ -52,6 +55,7 @@ class __FormState extends State<_Form> {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -78,10 +82,24 @@ class __FormState extends State<_Form> {
           ),
           ButtonAzul(
             text: 'Registrarse',
-            onPressed: () {
-              print(emailCtrl.text);
-              print(passCtrl.text);
-            },
+            onPressed: authService.autenticando
+                ? null
+                : () async {
+                    FocusScope.of(context).unfocus();
+
+                    final registerOK = await authService.register(
+                        nameCtrl.text.trim(),
+                        emailCtrl.text.trim(),
+                        passCtrl.text.trim());
+
+                    if (registerOK == true) {
+                      // TODO Conectar con nuestro socket server
+                      Navigator.pushReplacementNamed(context, 'usuarios');
+                    } else {
+                      // TODO mostrar el mensaje del backend
+                      mostrarAlerta(context, "Error", registerOK);
+                    }
+                  },
           ),
         ],
       ),

@@ -35,7 +35,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
               maxRadius: 14,
             ),
             SizedBox(height: 3),
-            Text('Estafany Flores',
+            Text('Estefany Flores',
                 style: TextStyle(color: Colors.black87, fontSize: 12))
           ],
         ),
