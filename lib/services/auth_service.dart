@@ -2,8 +2,7 @@ import 'dart:convert';
 import 'package:chat_app/models/usuario.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:chat_app/global/envronment.dart';
+import 'package:chat_app/global/environment.dart';
 import 'package:chat_app/models/login_response.dart';
 import 'package:flutter/widgets.dart';
 
