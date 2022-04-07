@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Labels extends StatelessWidget {
-  @required
   final String title;
-  @required
   final String subtitle;
-  @required
   final String ruta;
 
-  const Labels({this.ruta, this.title, this.subtitle});
+  const Labels(
+      {required this.ruta, required this.title, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {

@@ -14,8 +14,8 @@ String usuariosResponseToJson(UsuariosResponse data) =>
 
 class UsuariosResponse {
   UsuariosResponse({
-    this.ok,
-    this.usuarios,
+    required this.ok,
+    required this.usuarios,
   });
 
   bool ok;

@@ -40,7 +40,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
         appBar: AppBar(
           title: Center(
             child: Text(
-              usuario.nombre,
+              usuario!.nombre,
               style: TextStyle(color: Colors.black87),
             ),
           ),
@@ -70,7 +70,7 @@ class _UsuariosPageState extends State<UsuariosPage> {
           onRefresh: _cargarUsuarios,
           header: WaterDropHeader(
             complete: Icon(Icons.check, color: Colors.blue[400]),
-            waterDropColor: Colors.blue[400],
+            waterDropColor: Colors.blue[400]!,
           ),
           child: _listViewUsuarios(),
         ));

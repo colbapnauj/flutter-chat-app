@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 class Logo extends StatelessWidget {
-  @required
   final String image;
-  @required
+
   final String text;
 
-  const Logo({this.image, this.text});
+  const Logo({required this.image, required this.text});
   @override
   Widget build(BuildContext context) {
     return Center(

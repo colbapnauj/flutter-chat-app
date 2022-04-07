@@ -1,10 +1,10 @@
 class Mensaje {
   Mensaje({
-    this.de,
-    this.para,
-    this.mensaje,
-    this.createdAt,
-    this.updatedAt,
+    required this.de,
+    required this.para,
+    required this.mensaje,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   String de;

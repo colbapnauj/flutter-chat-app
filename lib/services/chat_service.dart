@@ -8,14 +8,14 @@ import 'package:http/http.dart' as http;
 import 'package:chat_app/models/usuario.dart';
 
 class ChatService with ChangeNotifier {
-  Usuario usuarioPara;
+  Usuario? usuarioPara;
 
   Future<List<Mensaje>> getChat(String usuarioID) async {
-    final resp = await http.get('${Environment.apiUrl}/mensajes/$usuarioID',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-token': await AuthService.getToken()
-        });
+    final resp = await http
+        .get(Uri.parse('${Environment.apiUrl}/mensajes/$usuarioID'), headers: {
+      'Content-Type': 'application/json',
+      'x-token': await AuthService.getToken()
+    });
 
     final mensajesResp = mensajesResponseFromJson(resp.body);
 

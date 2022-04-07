@@ -8,10 +8,11 @@ import 'package:chat_app/global/environment.dart';
 class UsuariosService {
   Future<List<Usuario>> getUsuarios() async {
     try {
-      final resp = await http.get('${Environment.apiUrl}/usuarios', headers: {
-        'Content-Type': 'application/json',
-        'x-token': await AuthService.getToken()
-      });
+      final resp = await http.get(Uri.parse('${Environment.apiUrl}/usuarios'),
+          headers: {
+            'Content-Type': 'application/json',
+            'x-token': await AuthService.getToken()
+          });
 
       final usuariosResponse = usuariosResponseFromJson(resp.body);
 

@@ -19,9 +19,9 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
   final _inputCtrl = new TextEditingController();
   final _focusNode = new FocusNode();
 
-  ChatService chatService;
-  SocketService socketService;
-  AuthService authService;
+  late ChatService chatService;
+  late SocketService socketService;
+  late AuthService authService;
 
   List<ChatMessage> _messages = [];
 
@@ -36,7 +36,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
 
     this.socketService.socket.on('mensaje-personal', _escucharMensaje);
 
-    _cargarHistorial(this.chatService.usuarioPara.uid);
+    _cargarHistorial(this.chatService.usuarioPara!.uid);
   }
 
   void _cargarHistorial(String usuarioID) async {
@@ -83,7 +83,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
           children: [
             CircleAvatar(
               child: Text(
-                usuarioPara.nombre.substring(0, 2),
+                usuarioPara!.nombre.substring(0, 2),
                 style: TextStyle(fontSize: 12),
               ),
               backgroundColor: Colors.blue[100],
@@ -180,7 +180,7 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
     _focusNode.requestFocus();
 
     final newMessage = new ChatMessage(
-      uid: authService.usuario.uid,
+      uid: authService.usuario!.uid,
       text: texto,
       animationController: AnimationController(
           vsync: this, duration: Duration(milliseconds: 200)),
@@ -192,8 +192,8 @@ class _ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
       _estaEscribiendo = false;
 
       this.socketService.emit('mensaje-personal', {
-        'de': this.authService.usuario.uid,
-        'para': this.chatService.usuarioPara.uid,
+        'de': this.authService.usuario!.uid,
+        'para': this.chatService.usuarioPara!.uid,
         'mensaje': texto
       });
     });

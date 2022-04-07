@@ -13,9 +13,9 @@ String loginResponseToJson(LoginResponse data) => json.encode(data.toJson());
 
 class LoginResponse {
   LoginResponse({
-    this.ok,
-    this.usuario,
-    this.token,
+    required this.ok,
+    required this.usuario,
+    required this.token,
   });
 
   String ok;

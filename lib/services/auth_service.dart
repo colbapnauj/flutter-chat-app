@@ -7,7 +7,7 @@ import 'package:chat_app/models/login_response.dart';
 import 'package:flutter/widgets.dart';
 
 class AuthService with ChangeNotifier {
-  Usuario usuario;
+  Usuario? usuario;
   bool _autenticando = false;
 
   // Create storage
@@ -23,7 +23,7 @@ class AuthService with ChangeNotifier {
   static Future<String> getToken() async {
     final _storage = FlutterSecureStorage();
     final token = await _storage.read(key: 'token');
-    return token;
+    return token!;
   }
 
   static Future<void> deleteToken() async {
@@ -35,7 +35,7 @@ class AuthService with ChangeNotifier {
     this.autenticando = true;
     final data = {'email': email, 'password': password};
 
-    final resp = await http.post('${Environment.apiUrl}/login',
+    final resp = await http.post(Uri.parse('${Environment.apiUrl}/login'),
         body: jsonEncode(data), headers: {'Content-Type': 'application/json'});
 
     this.autenticando = false;
@@ -54,7 +54,7 @@ class AuthService with ChangeNotifier {
 
     final data = {'nombre': nombre, 'email': email, 'password': password};
 
-    final resp = await http.post('${Environment.apiUrl}/login/new',
+    final resp = await http.post(Uri.parse('${Environment.apiUrl}/login/new'),
         body: jsonEncode(data), headers: {'Content-Type': 'application/json'});
 
     this.autenticando = false;
@@ -73,8 +73,8 @@ class AuthService with ChangeNotifier {
     final token = await this._storage.read(key: 'token');
     print(token);
 
-    final resp = await http.get('${Environment.apiUrl}/login/renew',
-        headers: {'Content-Type': 'application/json', 'x-token': token});
+    final resp = await http.get(Uri.parse('${Environment.apiUrl}/login/renew'),
+        headers: {'Content-Type': 'application/json', 'x-token': token ?? ''});
 
     if (resp.statusCode == 200) {
       final loginResponse = loginResponseFromJson(resp.body);

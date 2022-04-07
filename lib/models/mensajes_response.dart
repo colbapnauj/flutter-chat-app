@@ -14,8 +14,8 @@ String mensajesResponseToJson(MensajesResponse data) =>
 
 class MensajesResponse {
   MensajesResponse({
-    this.ok,
-    this.mensajes,
+    required this.ok,
+    required this.mensajes,
   });
 
   bool ok;

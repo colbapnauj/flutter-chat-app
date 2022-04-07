@@ -8,9 +8,9 @@ class ChatMessage extends StatelessWidget {
   final AnimationController animationController;
 
   const ChatMessage(
-      {@required this.text,
-      @required this.uid,
-      @required this.animationController});
+      {required this.text,
+      required this.uid,
+      required this.animationController});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ChatMessage extends StatelessWidget {
         sizeFactor:
             CurvedAnimation(parent: animationController, curve: Curves.easeOut),
         child: Container(
-          child: this.uid == authService.usuario.uid
+          child: this.uid == authService.usuario!.uid
               ? _myMessage()
               : _notMyMessage(),
         ),

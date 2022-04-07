@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ButtonAzul extends StatelessWidget {
-  @required
-  final Function onPressed;
-  @required
+  final Function()? onPressed;
   final String text;
   const ButtonAzul({
     this.onPressed,
-    this.text,
+    required this.text,
   });
 
   @override
@@ -17,7 +15,7 @@ class ButtonAzul extends StatelessWidget {
       highlightElevation: 5,
       color: Colors.blue,
       shape: StadiumBorder(),
-      onPressed: this.onPressed,
+      onPressed: onPressed,
       child: Container(
         width: double.infinity,
         height: 55,
