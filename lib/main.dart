@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Chat App',
+        title: 'PengChat',
         initialRoute: 'loading',
         routes: appRoutes,
       ),
