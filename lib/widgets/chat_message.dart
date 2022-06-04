@@ -36,7 +36,7 @@ class ChatMessage extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(8.0),
         margin: EdgeInsets.only(bottom: 5, left: 50, right: 5),
-        child: Text(
+        child: SelectableText(
           this.text,
           style: TextStyle(color: Colors.white),
         ),
@@ -52,7 +52,7 @@ class ChatMessage extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(8.0),
         margin: EdgeInsets.only(bottom: 5, left: 5, right: 50),
-        child: Text(
+        child: SelectableText(
           this.text,
           style: TextStyle(color: Colors.black87),
         ),
