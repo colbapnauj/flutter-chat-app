@@ -93,6 +93,7 @@ class AuthService with ChangeNotifier {
   }
 
   Future logout() async {
+    
     await _storage.delete(key: 'token');
   }
 }

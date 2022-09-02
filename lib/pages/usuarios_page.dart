@@ -1,4 +1,6 @@
+import 'package:chat_app/services/notifications_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 import 'package:chat_app/services/socket_service.dart';
@@ -22,6 +24,8 @@ class _UsuariosPageState extends State<UsuariosPage> {
   @override
   void initState() {
     this._cargarUsuarios();
+    // TODO: updateToken
+    _updateFCMToken();
     super.initState();
   }
 
@@ -52,6 +56,8 @@ class _UsuariosPageState extends State<UsuariosPage> {
             onPressed: () {
               socketService.disconnect();
               Navigator.pushReplacementNamed(context, 'login');
+              final notiService = NotificationsService();
+              notiService.updateFCMToken('');
               AuthService.deleteToken();
             },
           ),
@@ -117,5 +123,13 @@ class _UsuariosPageState extends State<UsuariosPage> {
     // if (failes, use regreshFailed())
 
     _refreshController.refreshCompleted();
+  }
+
+  _updateFCMToken() async {
+    // TODO: Update FCM Token
+    final notiService = NotificationsService();
+    final _storage = FlutterSecureStorage();
+    final fcmToken = await _storage.read(key: 'fcm_token');
+    await notiService.updateFCMToken(fcmToken ?? '');
   }
 }
