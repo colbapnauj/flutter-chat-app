@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
 
-class ButtonAzul extends StatelessWidget {
-  final Function()? onPressed;
-  final String text;
-  const ButtonAzul({
+class ButtonBlue extends StatelessWidget {
+  const ButtonBlue({
+    Key? key,
     this.onPressed,
     required this.text,
-  });
+  }) : super(key: key);
+
+  final Function()? onPressed;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      elevation: 2,
-      highlightElevation: 5,
-      color: Colors.blue,
-      shape: StadiumBorder(),
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        elevation: 2,
+        shape: const StadiumBorder(
+          side: BorderSide(width: 2, color: Colors.black),
+        ),
+        textStyle: const TextStyle(fontSize: 17),
+      ),
       onPressed: onPressed,
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         height: 55,
         child: Center(
-          child: Text(this.text,
-              style: TextStyle(color: Colors.white, fontSize: 17)),
+          child: Text(text),
         ),
       ),
     );

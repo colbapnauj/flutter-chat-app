@@ -1,48 +1,55 @@
-import 'package:chat_app/services/notifications_service.dart';
+import 'package:chat_app/pages/login_page.dart';
+import 'package:chat_app/pages/usuarios_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
-
 import 'package:chat_app/services/socket_service.dart';
 import 'package:chat_app/services/auth_service.dart';
 
-import 'package:chat_app/pages/login_page.dart';
-import 'package:chat_app/pages/usuarios_page.dart';
+class LoadingPage extends StatefulWidget {
+  const LoadingPage({Key? key}) : super(key: key);
 
-class LoadingPage extends StatelessWidget {
+  @override
+  State<LoadingPage> createState() => _LoadingPageState();
+}
+
+class _LoadingPageState extends State<LoadingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
         future: checkLoginState(context),
         builder: (context, snapshot) {
-          return Center(child: Text('Autenticando...'));
+          return const Center(child: Text('Autenticando...'));
         },
       ),
     );
   }
 
-  Future checkLoginState(BuildContext context) async {
+  Future<void> checkLoginState(BuildContext context) async {
     final authService = Provider.of<AuthService>(context, listen: false);
     final socketService = Provider.of<SocketService>(context, listen: false);
     final autenticado = await authService.isLoggedIn();
 
     if (autenticado) {
       socketService.connect();
-      // Navigator.pushReplacementNamed(context, 'usuarios');
+
+      if (!mounted) return;
+
       await Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-            pageBuilder: (_, __, ___) => UsuariosPage(),
-            transitionDuration: Duration(milliseconds: 0)),
+          pageBuilder: (_, __, ___) => const UsuariosPage(),
+          transitionDuration: const Duration(milliseconds: 0),
+        ),
       );
     } else {
-      // Navigator.pushReplacementNamed(context, 'login');
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-            pageBuilder: (_, __, ___) => LoginPage(),
-            transitionDuration: Duration(milliseconds: 0)),
+          pageBuilder: (_, __, ___) => const LoginPage(),
+          transitionDuration: const Duration(milliseconds: 0),
+        ),
       );
     }
   }

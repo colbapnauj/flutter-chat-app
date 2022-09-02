@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:chat_app/services/auth_service.dart';
+import 'package:chat_app/services/firebaseappconfig_service.dart';
 import 'package:chat_app/services/socket_service.dart';
 import 'package:chat_app/widgets/botton_azul.dart';
 import 'package:chat_app/widgets/custom_input.dart';
@@ -12,28 +11,31 @@ import 'package:provider/provider.dart';
 import 'package:chat_app/helpers/mostrar_alerta.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xffF2F2F2),
+        backgroundColor: const Color(0xffF2F2F2),
         body: SafeArea(
           child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Container(
+            physics: const BouncingScrollPhysics(),
+            child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.9,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Logo(
-                    image: 'assets/tag-logo.png',
-                    text: 'Messenger',
+                  const Logo(
+                    image: 'assets/icon/pengchat-icon.png',
+                    text: 'Pengchat',
                   ),
-                  _Form(),
-                  Labels(
+                  Form(),
+                  const Labels(
                       title: '¿No tienes cuenta?',
                       subtitle: 'Crea una ahora!',
                       ruta: 'register'),
-                  Text(
+                  // TODO Términos
+                  const Text(
                     'Términos y condiciones de uso',
                     style: TextStyle(fontWeight: FontWeight.w200),
                   )
@@ -45,12 +47,14 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class _Form extends StatefulWidget {
+class Form extends StatefulWidget {
+  const Form({Key? key}) : super(key: key);
+
   @override
-  __FormState createState() => __FormState();
+  FormState createState() => FormState();
 }
 
-class __FormState extends State<_Form> {
+class FormState extends State<Form> {
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
 
@@ -59,8 +63,8 @@ class __FormState extends State<_Form> {
     final authService = Provider.of<AuthService>(context);
     final socketService = Provider.of<SocketService>(context);
     return Container(
-      margin: EdgeInsets.only(top: 40),
-      padding: EdgeInsets.symmetric(horizontal: 50),
+      margin: const EdgeInsets.only(top: 40),
+      padding: const EdgeInsets.symmetric(horizontal: 50),
       child: Column(
         children: [
           CustomInput(
@@ -76,7 +80,7 @@ class __FormState extends State<_Form> {
             textController: passCtrl,
             isPassword: true,
           ),
-          ButtonAzul(
+          ButtonBlue(
             text: 'Ingrese',
             onPressed: authService.autenticando
                 ? null
@@ -88,8 +92,10 @@ class __FormState extends State<_Form> {
 
                     if (loginOK) {
                       socketService.connect();
+                      if (!mounted) return;
                       Navigator.pushReplacementNamed(context, 'usuarios');
                     } else {
+                      if (!mounted) return;
                       mostrarAlerta(context, "Login incorrecto",
                           "Revise sus credenciales");
                     }

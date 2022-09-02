@@ -1,38 +1,40 @@
 import 'package:flutter/material.dart';
 
 class Labels extends StatelessWidget {
+  const Labels({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.ruta,
+  }) : super(key: key);
   final String title;
   final String subtitle;
   final String ruta;
 
-  const Labels(
-      {required this.ruta, required this.title, required this.subtitle});
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Text(
-            title,
+    return Column(
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+              color: Colors.black54, fontSize: 15, fontWeight: FontWeight.w300),
+        ),
+        const SizedBox(height: 10),
+        GestureDetector(
+          onTap: () {
+            Navigator.pushReplacementNamed(context, ruta);
+          },
+          child: Text(
+            subtitle,
             style: TextStyle(
-                color: Colors.black54,
-                fontSize: 15,
-                fontWeight: FontWeight.w300),
+              color: Colors.blue[600],
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          SizedBox(height: 10),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushReplacementNamed(context, this.ruta);
-            },
-            child: Text(subtitle,
-                style: TextStyle(
-                    color: Colors.blue[600],
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold)),
-          )
-        ],
-      ),
+        )
+      ],
     );
   }
 }

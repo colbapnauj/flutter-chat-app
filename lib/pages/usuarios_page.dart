@@ -11,29 +11,24 @@ import 'package:chat_app/services/usuarios_service.dart';
 import 'package:chat_app/services/chat_service.dart';
 
 class UsuariosPage extends StatefulWidget {
+  const UsuariosPage({Key? key}) : super(key: key);
+
   @override
-  _UsuariosPageState createState() => _UsuariosPageState();
+  UsuariosPageState createState() => UsuariosPageState();
 }
 
-class _UsuariosPageState extends State<UsuariosPage> {
-  final usuarioService = new UsuariosService();
-  RefreshController _refreshController =
+class UsuariosPageState extends State<UsuariosPage> {
+  final usuarioService = UsuariosService();
+  final RefreshController refreshController =
       RefreshController(initialRefresh: false);
   List<Usuario> usuarios = [];
 
   @override
   void initState() {
-    this._cargarUsuarios();
-    // TODO: updateToken
-    _updateFCMToken();
+    cargarUsuarios();
+    updateFCMToken();
     super.initState();
   }
-
-  // final usuarios = [
-  //   Usuario(uid: '1', nombre: 'María', email: 'test1@test.com', online: true),
-  //   Usuario(uid: '1', nombre: 'Susan', email: 'test2@test.com', online: false),
-  //   Usuario(uid: '1', nombre: 'Astrid', email: 'test3@test.com', online: true)
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +40,13 @@ class _UsuariosPageState extends State<UsuariosPage> {
           title: Center(
             child: Text(
               usuario!.nombre,
-              style: TextStyle(color: Colors.black87),
+              style: const TextStyle(color: Colors.black87),
             ),
           ),
           elevation: 1,
           backgroundColor: Colors.white,
           leading: IconButton(
-            icon: Icon(Icons.exit_to_app),
+            icon: const Icon(Icons.exit_to_app),
             color: Colors.black87,
             onPressed: () {
               socketService.disconnect();
@@ -63,29 +58,29 @@ class _UsuariosPageState extends State<UsuariosPage> {
           ),
           actions: [
             Container(
-              margin: EdgeInsets.only(right: 10),
-              child: socketService.serverStatus == ServerStatus.Online
+              margin: const EdgeInsets.only(right: 10),
+              child: socketService.serverStatus == ServerStatus.online
                   ? Icon(Icons.check_circle, color: Colors.blue[400])
-                  : Icon(Icons.check_circle, color: Colors.red),
+                  : const Icon(Icons.check_circle, color: Colors.red),
             )
           ],
         ),
         body: SmartRefresher(
-          controller: _refreshController,
+          controller: refreshController,
           enablePullDown: true,
-          onRefresh: _cargarUsuarios,
+          onRefresh: cargarUsuarios,
           header: WaterDropHeader(
             complete: Icon(Icons.check, color: Colors.blue[400]),
             waterDropColor: Colors.blue[400]!,
           ),
-          child: _listViewUsuarios(),
+          child: listViewUsuarios(),
         ));
   }
 
-  ListView _listViewUsuarios() {
+  ListView listViewUsuarios() {
     return ListView.separated(
-      physics: BouncingScrollPhysics(),
-      separatorBuilder: (_, i) => Divider(),
+      physics: const BouncingScrollPhysics(),
+      separatorBuilder: (_, i) => const Divider(),
       itemCount: usuarios.length,
       itemBuilder: (_, i) => _usuarioListTile(usuarios[i]),
     );
@@ -96,10 +91,10 @@ class _UsuariosPageState extends State<UsuariosPage> {
       title: Text(usuario.nombre),
       subtitle: Text(usuario.email),
       leading: CircleAvatar(
+        backgroundColor: Colors.blue[100],
         child: Text(
           usuario.nombre.substring(0, 2),
         ),
-        backgroundColor: Colors.blue[100],
       ),
       trailing: Container(
         width: 10,
@@ -116,20 +111,19 @@ class _UsuariosPageState extends State<UsuariosPage> {
     );
   }
 
-  _cargarUsuarios() async {
-    this.usuarios = await usuarioService.getUsuarios();
+  cargarUsuarios() async {
+    usuarios = await usuarioService.getUsuarios();
     setState(() {});
 
     // if (failes, use regreshFailed())
 
-    _refreshController.refreshCompleted();
+    refreshController.refreshCompleted();
   }
 
-  _updateFCMToken() async {
-    // TODO: Update FCM Token
+  updateFCMToken() async {
     final notiService = NotificationsService();
-    final _storage = FlutterSecureStorage();
-    final fcmToken = await _storage.read(key: 'fcm_token');
+    const storage = FlutterSecureStorage();
+    final fcmToken = await storage.read(key: 'fcm_token');
     await notiService.updateFCMToken(fcmToken ?? '');
   }
 }

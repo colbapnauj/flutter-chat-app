@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:ui';
-
 import 'package:chat_app/helpers/mostrar_alerta.dart';
 import 'package:chat_app/services/socket_service.dart';
 import 'package:chat_app/widgets/botton_azul.dart';
@@ -11,28 +9,30 @@ import 'package:chat_app/widgets/logo.dart';
 import 'package:chat_app/services/auth_service.dart';
 
 class RegisterPage extends StatelessWidget {
+  const RegisterPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xffF2F2F2),
+        backgroundColor: const Color(0xffF2F2F2),
         body: SafeArea(
           child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Container(
+            physics: const BouncingScrollPhysics(),
+            child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.9,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Logo(
+                  const Logo(
                     image: 'assets/tag-logo.png',
                     text: 'Registro',
                   ),
                   _Form(),
-                  Labels(
+                  const Labels(
                       title: 'Ya tienes una cuenta?',
                       subtitle: 'Log in',
                       ruta: 'login'),
-                  Text(
+                  const Text(
                     'Términos y condiciones de uso',
                     style: TextStyle(fontWeight: FontWeight.w200),
                   )
@@ -59,8 +59,8 @@ class __FormState extends State<_Form> {
     final authService = Provider.of<AuthService>(context);
     final socketService = Provider.of<SocketService>(context);
     return Container(
-      margin: EdgeInsets.only(top: 40),
-      padding: EdgeInsets.symmetric(horizontal: 50),
+      margin: const EdgeInsets.only(top: 40),
+      padding: const EdgeInsets.symmetric(horizontal: 50),
       child: Column(
         children: [
           CustomInput(
@@ -82,7 +82,7 @@ class __FormState extends State<_Form> {
             textController: passCtrl,
             isPassword: true,
           ),
-          ButtonAzul(
+          ButtonBlue(
             text: 'Registrarse',
             onPressed: authService.autenticando
                 ? null
@@ -96,9 +96,11 @@ class __FormState extends State<_Form> {
 
                     if (registerOK == true) {
                       socketService.connect();
+                      if (!mounted) return;
                       Navigator.pushReplacementNamed(context, 'usuarios');
                     } else {
                       // TODO mostrar el mensaje del backend
+                      if (!mounted) return;
                       mostrarAlerta(context, "Error", registerOK);
                     }
                   },
