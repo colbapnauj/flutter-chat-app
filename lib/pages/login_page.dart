@@ -87,17 +87,22 @@ class FormState extends State<Form> {
                 : () async {
                     FocusScope.of(context).unfocus();
 
-                    final loginOK = await authService.login(
-                        emailCtrl.text.trim(), passCtrl.text.trim());
+                    try {
+                      final loginOK = await authService.login(
+                          emailCtrl.text.trim(), passCtrl.text.trim());
 
-                    if (loginOK) {
-                      socketService.connect();
-                      if (!mounted) return;
-                      Navigator.pushReplacementNamed(context, 'usuarios');
-                    } else {
-                      if (!mounted) return;
-                      mostrarAlerta(context, "Login incorrecto",
-                          "Revise sus credenciales");
+                      if (loginOK) {
+                        socketService.connect();
+                        if (!mounted) return;
+                        Navigator.pushReplacementNamed(context, 'usuarios');
+                      } else {
+                        if (!mounted) return;
+                        mostrarAlerta(context, "Login incorrecto",
+                            "Revise sus credenciales");
+                      }
+                    } catch ( e) {
+                      mostrarAlerta(
+                          context, "Error", e as String? ?? 'Algo salió mal');
                     }
                   },
           ),

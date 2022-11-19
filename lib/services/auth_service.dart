@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:chat_app/models/usuario.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -44,8 +45,10 @@ class AuthService with ChangeNotifier {
       usuario = loginResponse.usuario;
       guardarToken(loginResponse.token);
       return true;
+    } else if (resp.statusCode == 400 || resp.statusCode == 500) {
+      throw json.decode(resp.body)['msg'];
     } else {
-      return false;
+      throw 'Lo siento, nuestro servidor está confundido';
     }
   }
 

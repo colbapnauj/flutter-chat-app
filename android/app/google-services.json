@@ -7,81 +7,45 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:57106052935:android:39d532dde267c278ef7e62",
-        "android_client_info": {
-          "package_name": "com.example.batterylevel"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "57106052935-oeu8q14hgtu28g5kq2fkl0jkbiructn8.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAA1y_NfQ76bRGZXc0e_lDMoDWWFgKS1YU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "57106052935-oeu8q14hgtu28g5kq2fkl0jkbiructn8.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "57106052935-8u0ardu4p6uk1c64d46v6v0d1d06tr18.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.chatApp"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:57106052935:android:ec63bd9e59897567ef7e62",
-        "android_client_info": {
-          "package_name": "com.example.chat_app"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "57106052935-oeu8q14hgtu28g5kq2fkl0jkbiructn8.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAA1y_NfQ76bRGZXc0e_lDMoDWWFgKS1YU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "57106052935-oeu8q14hgtu28g5kq2fkl0jkbiructn8.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "57106052935-8u0ardu4p6uk1c64d46v6v0d1d06tr18.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.chatApp"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:57106052935:android:3c58c4d1c16c6420ef7e62",
+        "mobilesdk_app_id": "1:57106052935:android:f9fd7bd12191bcd7ef7e62",
         "android_client_info": {
           "package_name": "pe.abcorp.pengchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "57106052935-oeu8q14hgtu28g5kq2fkl0jkbiructn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA1y_NfQ76bRGZXc0e_lDMoDWWFgKS1YU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "57106052935-oeu8q14hgtu28g5kq2fkl0jkbiructn8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "57106052935-8u0ardu4p6uk1c64d46v6v0d1d06tr18.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.chatApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57106052935:android:62aa6b4c711fab8aef7e62",
+        "android_client_info": {
+          "package_name": "pe.net.abcorp.pengchat"
         }
       },
       "oauth_client": [

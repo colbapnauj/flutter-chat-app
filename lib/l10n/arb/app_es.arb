@@ -1,0 +1,15 @@
+{
+    "@@locale": "es",
+    "registerAppBarTitle": "Registro",
+    "@registerAppBarTitle": {
+        "description": "Title text shown in the AppBar of the Register Page"
+    },
+    "registerTermsText1": "He leído y acepto términos y condiciones de uso y ",
+    "@registerTermsText1": {
+        "description:": "Text part 1 of Terms"
+    },
+    "registerTermsText2": "política de tratamiento de datos.",
+    "@registerTermsText2": {
+        "description:": "Text part 2 of Terms"
+    }
+}

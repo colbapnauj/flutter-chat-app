@@ -2,11 +2,13 @@
 
 import 'dart:async';
 
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 class NotificationsService {
   static FirebaseMessaging messaging = FirebaseMessaging.instance;
+
   static String? token;
   static final StreamController<String> _messageStream =
       StreamController.broadcast();
@@ -26,9 +28,20 @@ class NotificationsService {
   }
 
   static Future initializeApp() async {
-    /// Init Push notifications
-    await Firebase.initializeApp();
-    token = await FirebaseMessaging.instance.getToken();
+    NotificationSettings settings = await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true);
+
+    if (settings.authorizationStatus != AuthorizationStatus.authorized) return;
+
+    token = await FirebaseMessaging.instance.getToken(
+        vapidKey:
+            'BIL6ulEbSh8gtcA_k4HQeyJMwtHGrJYZZYKBGAnAHNLivZtcY-IIFjKgnsawN2P0pyie6nxxXfu3LAN66yrkiTo');
 
     /// Handlers
     FirebaseMessaging.onBackgroundMessage(_backgroundHandler);

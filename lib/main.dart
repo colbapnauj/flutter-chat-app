@@ -1,5 +1,7 @@
+import 'package:chat_app/firebase_options.dart';
 import 'package:chat_app/services/firebaseappconfig_service.dart';
 import 'package:chat_app/services/notifications_service.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:chat_app/routes/routes.dart';
@@ -10,6 +12,9 @@ import 'package:chat_app/services/chat_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await NotificationsService.initializeApp();
   await FirebaseAppConfig.initialize();
   runApp(const MyApp());

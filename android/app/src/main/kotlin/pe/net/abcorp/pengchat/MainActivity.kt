@@ -1,4 +1,4 @@
-package com.example.chat_app
+package pe.net.abcorp.pengchat
 
 import io.flutter.embedding.android.FlutterActivity
 
