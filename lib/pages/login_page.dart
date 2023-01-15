@@ -16,26 +16,28 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xffF2F2F2),
-        body: SafeArea(
+      backgroundColor: const Color(0xffF2F2F2),
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.9,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Logo(
+                children: const [
+                  Logo(
                     image: 'assets/icon/pengchat-icon.png',
                     text: 'Pengchat',
                   ),
                   Form(),
-                  const Labels(
+                  Labels(
                       title: '¿No tienes cuenta?',
                       subtitle: 'Crea una ahora!',
                       ruta: 'register'),
                   // TODO Términos
-                  const Text(
+                  Text(
                     'Términos y condiciones de uso',
                     style: TextStyle(fontWeight: FontWeight.w200),
                   )
@@ -43,7 +45,9 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
@@ -57,6 +61,15 @@ class Form extends StatefulWidget {
 class FormState extends State<Form> {
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
+
+  bool _obscureText = false;
+
+  bool get obscureText => _obscureText;
+  set obscureText(bool value) => setState(() => _obscureText = value);
+
+  void showHidePassword() {
+    obscureText = !obscureText;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +91,12 @@ class FormState extends State<Form> {
             placeholder: 'Contraseña',
             keyboardType: TextInputType.visiblePassword,
             textController: passCtrl,
-            isPassword: true,
+            obscureText: obscureText,
           ),
+          ButtonBlue(
+              text: obscureText ? 'Mostrar contraseña' : 'Ocultar contraseña',
+              onPressed: () => showHidePassword()),
+          const SizedBox(height: 10),
           ButtonBlue(
             text: 'Ingrese',
             onPressed: authService.autenticando
@@ -100,7 +117,8 @@ class FormState extends State<Form> {
                         mostrarAlerta(context, "Login incorrecto",
                             "Revise sus credenciales");
                       }
-                    } catch ( e) {
+                    } catch (e) {
+                      authService.autenticando = false;
                       mostrarAlerta(
                           context, "Error", e as String? ?? 'Algo salió mal');
                     }

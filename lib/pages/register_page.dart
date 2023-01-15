@@ -54,6 +54,15 @@ class __FormState extends State<_Form> {
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
 
+  bool _obscureText = false;
+
+  bool get obscureText => _obscureText;
+  set obscureText(bool value) => setState(() => _obscureText = value);
+
+  void showHidePassword() {
+    obscureText = !obscureText;
+  }
+
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
@@ -80,8 +89,12 @@ class __FormState extends State<_Form> {
             placeholder: 'Contraseña',
             keyboardType: TextInputType.visiblePassword,
             textController: passCtrl,
-            isPassword: true,
+            obscureText: true,
           ),
+          ButtonBlue(
+              text: obscureText ? 'Mostrar contraseña' : 'Ocultar contraseña',
+              onPressed: () => showHidePassword()),
+          const SizedBox(height: 10),
           ButtonBlue(
             text: 'Registrarse',
             onPressed: authService.autenticando

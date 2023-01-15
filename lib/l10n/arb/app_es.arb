@@ -11,5 +11,9 @@
     "registerTermsText2": "política de tratamiento de datos.",
     "@registerTermsText2": {
         "description:": "Text part 2 of Terms"
+    },
+    "loginRegistertShowPassword": "Mostrar contraseña",
+    "@oginRegistertShowPassword": {
+        "description": "Text for button forgot password"
     }
 }

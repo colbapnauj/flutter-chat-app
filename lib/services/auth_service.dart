@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:chat_app/models/usuario.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -74,18 +73,24 @@ class AuthService with ChangeNotifier {
 
   Future<bool> isLoggedIn() async {
     final token = await storage.read(key: 'token');
+    try {
+      final resp = await http
+          .get(Uri.parse('${Environment.apiUrl}/login/renew'), headers: {
+        'Content-Type': 'application/json',
+        'x-token': token ?? ''
+      });
 
-    final resp = await http.get(Uri.parse('${Environment.apiUrl}/login/renew'),
-        headers: {'Content-Type': 'application/json', 'x-token': token ?? ''});
+      if (resp.statusCode == 200) {
+        final loginResponse = loginResponseFromJson(resp.body);
+        usuario = loginResponse.usuario;
+        guardarToken(loginResponse.token);
 
-    if (resp.statusCode == 200) {
-      final loginResponse = loginResponseFromJson(resp.body);
-      usuario = loginResponse.usuario;
-      guardarToken(loginResponse.token);
-
-      return true;
-    } else {
-      logout();
+        return true;
+      } else {
+        logout();
+        return false;
+      }
+    } catch (e) {
       return false;
     }
   }

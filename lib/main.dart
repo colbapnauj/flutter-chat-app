@@ -11,12 +11,12 @@ import 'package:chat_app/services/socket_service.dart';
 import 'package:chat_app/services/chat_service.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  await NotificationsService.initializeApp();
-  await FirebaseAppConfig.initialize();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
+  // await NotificationsService.initializeApp();
+  // await FirebaseAppConfig.initialize();
   runApp(const MyApp());
 }
 

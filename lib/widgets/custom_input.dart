@@ -7,13 +7,14 @@ class CustomInput extends StatelessWidget {
     required this.placeholder,
     required this.textController,
     this.keyboardType = TextInputType.text,
-    this.isPassword = false,
+    this.obscureText = false,
   }) : super(key: key);
   final IconData icon;
   final String placeholder;
   final TextEditingController textController;
   final TextInputType keyboardType;
-  final bool isPassword;
+  final bool obscureText;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class CustomInput extends StatelessWidget {
         controller: textController,
         autocorrect: false,
         keyboardType: keyboardType,
-        obscureText: isPassword,
+        obscureText: obscureText,
         decoration: InputDecoration(
             prefix: Icon(icon),
             focusedBorder: InputBorder.none,
